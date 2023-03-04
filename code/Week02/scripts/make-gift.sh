@@ -1,7 +1,7 @@
 #!/bin/bash
 
-assets=/workspace/code/Week02/assets
-keypath=/workspace/keys
+assets=~/code/cardano/plutus-pioneer-program/code/Week02/assets
+keypath=~/code/cardano/plutus-pioneer-program/keys
 name="$1"
 txin="$2"
 body="$assets/gift.txbody"

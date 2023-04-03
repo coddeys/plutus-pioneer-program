@@ -31,7 +31,7 @@ main = do
       [
         testGroup "All times are in POSIXTime (Not slots)"
           [ homework1 defaultBabbage
-          -- , homework2 defaultBabbage
+          , homework2 defaultBabbage
           ]
       ]
 

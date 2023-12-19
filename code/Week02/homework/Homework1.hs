@@ -8,7 +8,8 @@ module Homework1 where
 import qualified Plutus.V2.Ledger.Api as PlutusV2
 import           PlutusTx             (compile)
 import           PlutusTx.Prelude     (Bool (..), BuiltinData)
-import           Utilities            (wrapValidator)
+import           Prelude              (IO)
+import           Utilities            (wrapValidator, writeValidatorToFile)
 
 ---------------------------------------------------------------------------------------------------
 ----------------------------------- ON-CHAIN / VALIDATOR ------------------------------------------
@@ -24,3 +25,9 @@ wrappedVal = wrapValidator mkValidator
 
 validator :: PlutusV2.Validator
 validator = PlutusV2.mkValidatorScript $$(PlutusTx.compile [|| wrappedVal ||])
+
+---------------------------------------------------------------------------------------------------
+------------------------------------- HELPER FUNCTIONS --------------------------------------------
+
+saveVal :: IO ()
+saveVal = writeValidatorToFile "./assets/redeemer-two-true.plutus" validator

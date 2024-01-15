@@ -1,25 +1,30 @@
-#!/bin/sh
+#!/bin/bash
 
 assets=~/code/cardano/plutus-pioneer-program/code/Week02/assets
 keypath=~/code/cardano/plutus-pioneer-program/keys
 name="$1"
-txin="$2"
+collateral="$2"
+txin="$3"
+
+pp="$assets/protocol-parameters.json"
 body="$assets/redeemer-record.txbody"
 tx="$assets/redeemer-record.tx"
 
-# Build redeemer-record address
-cardano-cli address build \
-    --payment-script-file "$assets/redeemer-record.plutus" \
+# Query the protocol parameters \
+
+cardano-cli query protocol-parameters \
     --testnet-magic 2 \
-    --out-file "$assets/redeemer-record.addr"
+    --out-file "$pp"
 
 # Build the transaction
 cardano-cli transaction build \
     --babbage-era \
     --testnet-magic 2 \
     --tx-in "$txin" \
-    --tx-out "$(cat "$assets/redeemer-record.addr") + 1000000 lovelace" \
-    --tx-out-inline-datum-file "$assets/unit.json" \
+    --tx-in-script-file "$assets/redeemer-record.plutus" \
+    --tx-in-inline-datum-present \
+    --tx-in-redeemer-file "$assets/unit.json" \
+    --tx-in-collateral "$collateral" \
     --change-address "$(cat "$keypath/$name.addr")" \
     --out-file "$body"
 

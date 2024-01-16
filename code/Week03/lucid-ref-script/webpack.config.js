@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
     experiments: {
@@ -15,6 +16,7 @@ module.exports = {
         port: 9081,
     },
     plugins: [
+        new Dotenv(),
         new HtmlWebpackPlugin({
             title: 'Vesting (reference script)',
             template: './src/index.html'

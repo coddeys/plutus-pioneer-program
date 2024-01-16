@@ -21,13 +21,14 @@ function removeChildren(elt) {
 
 async function loadCardano() {
     const nami = window.cardano.nami;
+    const blockfrost_project_id = process.env.BLOCKFROST_KEY;
     if (!nami) {
         setTimeout(loadCardano);
     } else {
         const api = await nami.enable();
         console.log('nami enabled');
         const lucid = await L.Lucid.new(
-            new L.Blockfrost("https://cardano-preview.blockfrost.io/api/v0", "preview1JXEDVldkIyBkxEUrEx3n9ll4afFK1Xj"),
+            new L.Blockfrost("https://cardano-preview.blockfrost.io/api/v0", blockfrost_project_id),
             "Preview",
         );
         console.log('lucid active');

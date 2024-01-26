@@ -1,0 +1,3 @@
+[submodule "code/Week08/plutip"]
+	path = code/Week08/plutip
+	url = git@github.com:mlabs-haskell/plutip.git

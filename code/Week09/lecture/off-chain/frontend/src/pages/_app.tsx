@@ -73,10 +73,11 @@ export default function App({ Component, pageProps }: AppProps) {
     const [appState, setAppState] = useState<AppState>(initialAppState);
 
     const connectLucidAndNami = async () => {
+        const blockfrost_project_id = process.env.NEXT_PUBLIC_BLOCKFROST_KEY;
         const lucid = await Lucid.new(
             new Blockfrost(
                 "https://cardano-preview.blockfrost.io/api/v0",
-                "previewfz0NMrCf2gTuGYmnkzB4KfNmM3qzYBzL"
+                blockfrost_project_id
             ),
             "Preview"
         );

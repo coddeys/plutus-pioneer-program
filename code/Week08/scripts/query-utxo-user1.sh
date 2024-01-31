@@ -1,5 +1,5 @@
-#!/bin/bash
-export CARDANO_NODE_SOCKET_PATH=/workspace/cardano-private-testnet-setup/private-testnet/node-spo1/node.sock
-cardano-cli query utxo \
-    --testnet-magic 42 \
-    --address $(cat /workspace/cardano-private-testnet-setup/private-testnet/addresses/payment1.addr)
+#!/bin/sh
+export CARDANO_NODE_SOCKET_PATH=$(jq -r '.ciNodeSocket' plutip/local-cluster-info.json)
+wallets=$(jq -r '.ciWallets | .[0]' plutip/local-cluster-info.json)
+address=$(echo $wallets | jq -r .[1] | tr -d '"' )
+cardano-cli query utxo --mainnet --address $address
